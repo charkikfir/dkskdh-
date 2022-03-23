@@ -3,7 +3,7 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
-import flixel.FlxG;
+import flixel.FlxG; 
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
@@ -36,7 +36,6 @@ class MainMenuState extends MusicBeatState
 		'story_mode',
 		'freeplay',
 		#if MODS_ALLOWED 'mods', #end
-		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
 		#if !switch 'donate', #end
 		'options'
@@ -114,6 +113,19 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
+                        menuItem.scale.set(0.8, 0.8);
+
+                         starecrown = new FlxSprite(589.5, 40);
+		starecrown.frames = Paths.getSparrowAtlas('starecrown');
+		starecrown.antialiasing = true;
+		starecrown.animation.addByPrefix('idle', 'idle', 24);
+		starecrown.animation.addByPrefix('idle', 'idle', 24);
+		starecrown.setGraphicSize(Std.int(starecrown.width * 1));
+		starecrown.animation.play('idle');
+		starecrown.updateHitbox();
+		starecrown.visible = false;
+		add(starecrown);
+
 			menuItem.ID = i;
 			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
@@ -124,7 +136,6 @@ class MainMenuState extends MusicBeatState
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
 		}
-
 		FlxG.camera.follow(camFollowPos, null, 1);
 
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
@@ -267,6 +278,7 @@ class MainMenuState extends MusicBeatState
 		menuItems.forEach(function(spr:FlxSprite)
 		{
 			spr.screenCenter(X);
+                        spr.x += -300; 
 		});
 	}
 
